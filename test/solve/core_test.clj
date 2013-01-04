@@ -23,7 +23,14 @@
              'x
              '(= (* x 3) 9)
             )))
+ )
 
-
+(deftest simplification
+  (is (= 'x (simplify
+              '(/ 2 (* 2 x))
+      )))
+  (is (= 'x (simplify
+              '(* 2 (/ x 2))
+      )))
 
          )

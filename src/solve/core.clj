@@ -33,3 +33,7 @@
   )
 
 
+(defn simplify [expression]
+  'x
+  )
+
