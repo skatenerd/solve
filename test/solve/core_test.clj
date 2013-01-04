@@ -2,6 +2,28 @@
   (:use clojure.test
         solve.core))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest one-variable
+  (is (= 4 (solve-equation
+             'x
+             '(= x 4)
+           )))
+  (is (= 8 (solve-equation
+             'x
+             '(= x 8)
+           )))
+  (is (= 4 (solve-equation
+             'x
+             '(= (* 2 x) 8)
+            )))
+  (is (= 3 (solve-equation
+             'x
+             '(= (* 3 x) 9)
+            )))
+  (is (= 3 (solve-equation
+             'x
+             '(= (* x 3) 9)
+            )))
+
+
+
+         )
