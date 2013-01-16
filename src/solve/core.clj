@@ -15,18 +15,20 @@
 (defprotocol Solvable
   (solve-for [this target-variable]))
 
+;kill seq check
+
 (defrecord Leaf [leaf]
   Expression
-  (evaluate [this] leaf))
+  (evaluate [this] leaf)
+  (operator [this] 'identity)
+  (arguments [this] (list s-expression)))
+  
+  
 
 (defrecord MathSyntaxTree [s-expression]
   Expression
-  (operator [this] (if (seq? s-expression)
-                     (first s-expression)
-                     'identity))
-  (arguments [this] (if (seq? s-expression)
-                      (rest s-expression)
-                      (list s-expression)))
+  (operator [this] (first s-expression))
+  (arguments [this] (rest s-expression))
   (evaluate [this] (if (all-numeric? (arguments this))
                      (new-expression (apply (eval (operator this)) (arguments this)))
                      this
