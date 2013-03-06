@@ -2,38 +2,51 @@
   (:use clojure.test
         solve.core))
 
-(deftest data-structures
-   (let [expression (new-expression '(+ 1 2))]
-     (is (= '+ (operator expression)))
-     (is (= '(1 2) (arguments expression)))
-     )
+(deftest solve
+  (testing "data structures"
 
-   (let [unary (new-expression 2)]
-     (is (= 'identity (operator unary)))
-     (is (= '(2) (arguments unary))))
+    (testing "unary expression"
+      (let [unary (new-expression 2)]
+        (is (= 'identity (operator unary)))
+        (is (= unary (arguments unary)))))
 
-   (let [complex (new-expression '(+ (* 4 3) 2))]
-     (is (= '+ (operator complex)))
-     (is (= 2 (last (arguments complex))))
-     (let [first-argument (first (arguments complex))]
-       (is (= (new-expression '(* 4 3)) first-argument))
-       (is (= '* (operator first-argument)))
-       (is (= '(4 3) (arguments first-argument)))
-       )
-   )
+    (testing "simple expression"
+      (let [expression (new-expression '(+ 5 2))]
+        (is (= (new-expression '+) (operator expression)))
+        (is (= (new-expression 5) (first (arguments expression))))
+        (is (= (new-expression 2) (second (arguments expression))))
 
-   (is (opposite-operators? '+ '-))
-   (is (opposite-operators? '- '+))
-   (is (opposite-operators? '* '/))
-   (is (not (opposite-operators? '* '+)))
-   )
+;      (is (= (new-expression 1)  (first (arguments expression))))
+;      (is (= (new-expression 2)  (second (arguments expression))))))
+))))
+;  (testing "complex expression"
+;           (let [complex (new-expression '(+ (* 4 3) 2))]
+;             (is (= (new-expression '+) (operator complex)))
+;             (is (= 2 (last (arguments complex))))
+;             (let [first-argument (first (arguments complex))]
+;               (is (= (new-expression '(* 4 3)) first-argument))
+;               (is (= '* (operator first-argument)))
+;               (is (= '(4 3) (arguments first-argument)))
+;               )))
+;  (testing "operators"
+;     (is (opposite-operators? '+ '-))
+;     (is (opposite-operators? '- '+))
+;     (is (opposite-operators? '* '/))
+;     (is (not (opposite-operators? '* '+)))))
+;
+;(testing "solve equations"
+;  (deftest one-variable
+;    (let [equation (new-expression '(= x 4))]
+;      (is (= (new-expression 4) (solve-for
+;                 equation
+;                 'x))))))
+;
+;(testing "simplify equations"
+         ;)
 
-(deftest one-variable
-  (let [equation (new-equation 'x 4)]
-    (is (= (new-expression 4) (solve-for
-               equation
-               'x
-              ))))
+
+
+
          ;goal
 ;  (let [equation (new-equation '(* 4 x) 16)]
 ;    (is (= (new-expression 4) (solve-for
@@ -41,13 +54,27 @@
 ;               'x
 ;              ))))
          
-         )
-(deftest simplification
-  (is (= 4 (simplify (new-expression '(* 2 2)))))
-  (let [expr (new-expression '(* 2 x))]
-    (is (= expr (simplify expr))))
-  (is (= 8 (simplify (new-expression '(* 4 (/ 4 2))))))
-         )
+;(deftest simplification
+;  (is (= 4 (simplify (new-expression '(* 2 2)))))
+;  (let [expr (new-expression '(* 2 x))]
+;    (is (= expr (simplify expr))))
+;  (is (= 8 (simplify (new-expression '(* 4 (/ 4 2))))))
+;         )
+;
+;
+;
+
+
+
+
+
+
+
+
+
+
+
+
 ;  (is (= 'x
 ;         (simplify
 ;           '(* 2 (/ x 2))
